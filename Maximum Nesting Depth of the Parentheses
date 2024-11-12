@@ -1,0 +1,18 @@
+// time complexity of O(n), where n is the length of the string
+
+int maxDepth(string s) {
+        int maxDepth=0;
+        int currDepth=0;
+        for(char ch:s){
+            if(ch=='(')
+            {
+                currDepth++;
+                maxDepth=max(maxDepth,currDepth);
+            }
+            else if(ch==')')
+            {
+                currDepth--;
+            }
+        }
+        return maxDepth;
+    }
