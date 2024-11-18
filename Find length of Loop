@@ -1,3 +1,24 @@
+//Brute Force Approach
+
+int countNodesinLoop(Node *head) {
+        // Code here
+        unordered_map<Node*,int> mp;
+        int timer=0;
+        Node*temp=head;
+        while(temp!=NULL)
+        {
+            if(mp.find(temp)!=mp.end()){
+                int val = timer-mp[temp];
+                return val;
+            }
+            mp[temp]=timer;
+            temp=temp->next;
+            timer++;
+        }
+        return 0;
+    }
+
+
 //Optimal approach (Tortoise and Hare Algorithm)
 int findLength(Node*slow,Node*fast){
         int cnt=1;
