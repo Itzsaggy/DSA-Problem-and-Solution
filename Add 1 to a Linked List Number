@@ -1,0 +1,63 @@
+//Iterative way 
+Node* reverseLinkedList(Node* head) {
+    Node* prev = NULL;
+    Node* temp = head;
+
+    while (temp != NULL) {
+        Node* nextNode = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = nextNode;
+    }
+    return prev;
+}
+
+Node* addOne(Node* head) {
+    head = reverseLinkedList(head);
+
+    Node* curr = head;
+    int carry = 1; 
+
+    while (curr != NULL) {
+        int sum = curr->data + carry; 
+        curr->data = sum % 10;       
+        carry = sum / 10;             
+
+        if (carry == 0) {
+            break;
+        }
+
+        if (curr->next == NULL && carry != 0) {
+            curr->next = new Node(carry);
+            carry = 0;
+        }
+
+        curr = curr->next; 
+    }
+    return reverseLinkedList(head);
+}
+
+//Recursive Way
+
+ int helper(Node*temp){
+      if(temp==NULL){
+          return 1;
+      }
+      int carry=helper(temp->next);
+      
+      temp->data=temp->data+carry;
+      if(temp->data<10) return 0;
+      temp->data=0;
+      return 1;
+      
+  }
+    Node* addOne(Node* head) {
+     
+        int carry=helper(head);
+        if(carry==1){
+            Node* newNode=new Node(1);
+            newNode->next=head;
+            head=newNode;
+        }
+        return head;
+    }
